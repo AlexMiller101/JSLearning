@@ -1,0 +1,15 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Calculate things",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Sourav Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^8.2.4",
+    "electron-packager": "^14.2.1"
+  }
+}

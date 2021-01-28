@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Electron Calculator</title>
+
+        <!-- linking bootstrap 4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <style>
+            #calc-input input[type="text"]{
+                width: 100%;
+                text-align: right;
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            #calc-btn-area div > div > button {
+                width: 100px;
+                margin-left: 3px;
+                margin-right: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="jumbotron">Welcome to the Calculator App</h1>
+        <div id="calc-body" class="container-fluid">
+            <form id="calc-form">
+                <div id="calc-input">
+                    <input type="text" class="form-control" autofocus placeholder="0"/>
+                </div>
+            </form>
+                <!-- Place for Calculator Buttons -->
+                <div id="calc-btn-area" class="container-fluid">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary">1</button>
+                        </div>
+                        
+                        <div class="col">
+                            <button class="btn btn-primary">2</button>
+                        </div>
+
+                        <div class="col">
+                            <button class="btn btn-primary">3</button>
+                        </div>
+
+                        <div class="col">
+                            <button class="btn btn-primary">4</button>
+                        </div>
+
+                        <div class="col">
+                            <button class="btn btn-primary">5</button>
+                        </div>
+                        
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>

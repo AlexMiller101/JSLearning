@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Electron Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        text-decoration: none;
+      }
+      .jumbotron {
+        font-size: 42px;
+        text-align: center;
+        font-family: Helvitca;
+      }
+      #calc-form input[type="text"] {
+        text-align: right;
+        font-size: 22px;
+        padding: 12px;
+        height: 50px;
+      }
+      .extra {
+        width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 18px;
+        margin-right: 3px;
+        border-radius: 0px;
+        margin-top: 5px;
+      }
+      .calc-container {
+        margin-left: 1px;
+        margin-right: 1px;
+      }
+      .main-container {
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="jumbotron">
+        Electron Calculator
+      </div>
+
+      <!-- Input stuffs  -->
+      <div class="container-fluid">
+        <form id="calc-form" class="">
+          <input type="text" id="inputField" autofocus class="form-control" placeholder="0"/>
+        </form>
+
+        <!-- Buttons for Calculator -->
+        <div class="row calc-container main-container">
+
+          <!-- <div class="col"> -->
+            <button class="btn btn-primary  extra col" onclick="outputT(1)" type="button">1</button>
+          <!-- </div> -->
+
+          <!-- <div class="col"> -->
+            <button class="btn btn-primary  extra col" onclick="outputT(2)" type="button">2</button>
+          <!-- </div> -->
+
+          <!-- <div class="col"> -->
+            <button class="btn btn-primary extra col" onclick="outputT(3)" type="button">3</button>
+          <!-- </div> -->
+
+        </div>
+
+        <div class="row calc-container">
+
+          <button class="btn btn-primary extra col" onclick="outputT(4)" type="button">4</button>
+
+          <button class="btn btn-primary extra col" onclick="outputT(5)" type="button">5</button>
+
+          <button class="btn btn-primary extra col" onclick="outputT(6)" type="button">6</button>
+
+        </div>
+
+        <div class="row calc-container">
+
+          <button class="btn btn-primary  extra col" onclick="outputT(7)" type="button">7</button>
+
+          <button class="btn btn-primary  extra col" onclick="outputT(8)" type="button">8</button>
+
+          <button class="btn btn-primary  extra col" onclick="outputT(9)" type="button">9</button>
+
+        </div>
+
+        <div class="row calc-container">
+
+          <button class="btn btn-info  extra col" onclick="outputT(0)" type="button">0</button>
+          <button type="button" class="btn btn-danger extra col" onclick="clearT()" name="button">C</button>
+
+        </div>
+
+        <!-- the Operators Button -->
+        <div class="row calc-container">
+
+          <button class="btn btn-dark extra col" onclick="outputT('+')" type="button">+</button>
+
+          <button class="btn btn-dark  extra col" onclick="outputT('-')" type="button">-</button>
+
+          <button class="btn btn-dark  extra col" onclick="outputT('*')" type="button">*</button>
+
+        </div>
+
+        <div class="row calc-container">
+
+          <button class="btn btn-dark  extra col" onclick="outputT('/')" type="button">/</button>
+
+        </div>
+
+        <div class="row calc-container">
+
+          <button class="btn btn-danger extra col" onclick="outputT('.')" type="button">.</button>
+          <button type="button" id="submitCalc" class="btn btn-success extra col" name="button">=</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--Scripts tags -->
+    <script>
+      let submitBtn = document.querySelector('#submitCalc');
+      // storing values of every class elements
+      
+
+      submitBtn.addEventListener('click', AfterSubmit);
+
+      // displaying values
+
+      function outputT(v){
+        let inputField = document.querySelector('#inputField');
+
+        inputField.value += v;
+      }
+
+      function clearT(){
+        let inputField = document.querySelector('#inputField');
+
+        inputField.value = '';
+      }
+
+      function AfterSubmit(){
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
+        const inputField = document.querySelector('#inputField').value;
+        // sending to the main.js through ipcRenderer
+
+        ipcRenderer.send('num:calc', inputField);
+
+        // clearing data in input after sending
+        clearT();
+
+        // Catching the Results from main.js
+        ipcRenderer.on('result:display', function(e, result){
+          
+          const inputfield = document.querySelector('#inputField');
+          inputfield.value = result;
+        });
+      }
+    </script>
+  </body>
+</html>
